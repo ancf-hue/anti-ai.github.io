@@ -7,7 +7,7 @@
 
 ## 🌐 Прямой доступ к проектам
 Все наши инструменты собраны на одной удобной странице:
-👉 **[https://github.io](https://github.io)**
+👉https://ancf-hue.github.io/anti-ai.github.io/
 
 ---
 
@@ -37,4 +37,4 @@
 ---
 
 ## 📺 Наши ресурсы
-*  / Rutube "ВолшебствО"](https://rutube.ru) — видео-инструкции и магия защиты.
+*   Rutube "ВолшебствО" https://rutube.ru/channel/24404224/ видео и магия.
