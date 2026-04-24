@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-AI Shield: Витрина проектов</title>
+    <style>
+        :root { --neon: #00ff88; --bg: #0a0a0a; --card: #161616; --blue: #007bff; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #e0e0e0; margin: 0; line-height: 1.6; }
+        
+        header { background: #000; padding: 50px 20px; text-align: center; border-bottom: 2px solid var(--neon); }
+        h1 { color: var(--neon); margin: 0; text-transform: uppercase; letter-spacing: 4px; font-size: 2.2rem; }
+        .subtitle { color: #888; margin-top: 10px; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        
+        /* Сетка объявлений */
+        .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
+        /* Улучшенная карточка */
+        .card { 
+            background: var(--card); 
+            border: 1px solid #333; 
+            border-radius: 18px; 
+            padding: 25px; 
+            display: flex; 
+            flex-direction: column; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+        .card:hover { 
+            border-color: var(--neon); 
+            transform: translateY(-8px); 
+            box-shadow: 0 12px 30px rgba(0,255,136,0.15); 
+        }
+        
+        .card-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+        .card-title { font-size: 1.4rem; font-weight: bold; color: #fff; margin-bottom: 12px; min-height: 3.2rem; }
+        .card-desc { font-size: 0.95rem; color: #aaa; flex-grow: 1; margin-bottom: 25px; }
+        
+        .btn { 
+            display: block; 
+            text-align: center; 
+            background: rgba(0, 255, 136, 0.05); 
+            border: 1px solid var(--neon); 
+            color: var(--neon); 
+            padding: 12px; 
+            border-radius: 10px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+        .btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 15px var(--neon); }
+
+        /* Секция поддержки */
+        .support-box { 
+            background: linear-gradient(145deg, #111, #0a1a2a);
+            border: 1px solid var(--blue); 
+            border-radius: 20px; 
+            padding: 40px; 
+            margin-top: 60px; 
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.1);
+        }
+        .support-box h2 { color: var(--blue); margin-top: 0; letter-spacing: 1px; }
+        .phone-num { font-size: 1.8rem; color: #fff; font-weight: bold; margin: 20px 0; display: block; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        
+        .rutube-card { border-color: #ff0000 !important; }
+        .rutube-card .btn { border-color: #ff0000; color: #ff0000; }
+        .rutube-card .btn:hover { background: #ff0000; color: #fff; }
+
+        footer { text-align: center; padding: 50px; color: #555; font-size: 0.9rem; border-top: 1px solid #222; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🛡️ ANTI-AI SHIELD</h1>
+    <div class="subtitle">Автономные социальные инструменты. Безопасность и развитие без контроля ИИ.</div>
+</header>
+
+<div class="container">
+    <!-- Сетка проектов -->
+    <div id="project-board" class="board"></div>
+
+    <!-- Блок поддержки -->
+    <div class="support-box">
+        <h2>💙 ПОДДЕРЖАТЬ ПРОЕКТЫ</h2>
+        <p>Все приложения создаются бесплатно для людей. Ваш вклад помогает нам оставаться независимыми.</p>
+        <span class="phone-num">8-920-227-56-76</span>
+        <p style="font-size: 0.9rem; color: #888;">Перевод по номеру телефона (любой банк)</p>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 Anti-AI Shield • Технологии для людей • Работает оффлайн
+</footer>
+
+<script>
+/**
+ * СПИСОК ПРОЕКТОВ (JSON)
+ * Чтобы добавить проект, просто скопируйте строку и вставьте её ниже.
+ */
+const projects = [
+    {
+        title: "Защита от мошенников",
+        icon: "🛡️",
+        desc: "Инструменты для распознавания и блокировки телефонных атак.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Против Буллинга",
+        icon: "🏫",
+        desc: "Защита детей и родителей от школьной травли и давления.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Анти-Стресс",
+        icon: "🧘",
+        desc: "Медитации и звуковые практики для спокойствия мозга.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Развитие Памяти",
+        icon: "🧠",
+        desc: "Оффлайн-тренажеры для укрепления когнитивных способностей.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Ритм (Метроном)",
+        icon: "🥁",
+        desc: "Профессиональный метроном для музыкантов. Работает без сети.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Барабан (20 Ритмов)",
+        icon: "🎵",
+        desc: "Сборник ритмических рисунков для тренировок и творчества.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Животные поют",
+        icon: "🐾",
+        desc: "Добрый развлекательный проект для всей семьи.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Штрих-код",
+        icon: "📱",
+        desc: "Инструмент для проверки товаров без лишней слежки.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Пароли",
+        icon: "🔐",
+        desc: "Генератор безопасных ключей внутри вашего устройства.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Уровень",
+        icon: "📐",
+        desc: "Цифровой строительный инструмент для точных работ.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Космос",
+        icon: "✨",
+        desc: "Интерактивное погружение в тайны вселенной.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Автомобиль",
+        icon: "🚗",
+        desc: "Полезные утилиты для водителей в оффлайн-режиме.",
+        link: "https://vercel.app"
+    },
+    {
+        title: "Видео «ВолшебствО»",
+        icon: "🎬",
+        desc: "Наш видеоканал на Rutube: уроки и магия защиты.",
+        link: "https://rutube.ru",
+        specialClass: "rutube-card"
+    }
+];
+
+/**
+ * ФУНКЦИЯ АВТО-ОТРИСОВКИ
+ */
+function renderBoard() {
+    const board = document.getElementById('project-board');
+    board.innerHTML = ''; // Очистка
+
+    projects.forEach(p => {
+        const card = document.createElement('div');
+        card.className = `card ${p.specialClass || ''}`;
+        card.innerHTML = `
+            <span class="card-icon">${p.icon}</span>
+            <div class="card-title">${p.title}</div>
+            <div class="card-desc">${p.desc}</div>
+            <a href="${p.link}" target="_blank" class="btn">ОТКРЫТЬ ПРОЕКТ</a>
+        `;
+        board.appendChild(card);
+    });
+}
+
+// Запуск при загрузке
+window.onload = renderBoard;
+</script>
+
+</body>
+</html>
