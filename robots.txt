@@ -1,0 +1,14 @@
+# robots.txt for ANTI‑AI SHIELD
+# https://ancf-hue.github.io/anti-ai.github.io/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://ancf-hue.github.io/anti-ai.github.io/sitemap.xml
+
+# Disallow common admin or system paths (if any exist)
+Disallow: /assets/
+Disallow: /static/
+Disallow: /js/
+Disallow: /css/
