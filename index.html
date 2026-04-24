@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Anti-AI Shield | Витрина цифровой защиты</title>
-    <!-- favicon.ico - добавлен -->
+    <!-- ✅ Логотип во вкладке браузера -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="shortcut icon" href="favicon.ico">
     <style>
         * {
             margin: 0;
@@ -22,7 +21,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Подключение шрифта для акцентов */
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,500;14..32,700;14..32,800&display=swap');
 
         :root {
@@ -35,7 +33,6 @@
             --red-rutube: #ff4c4c;
         }
 
-        /* ГЛАВНЫЙ ХЕДЕР */
         .hero {
             background: radial-gradient(circle at 20% 30%, #0b1117, #030507);
             padding: 3rem 1.5rem 4rem;
@@ -43,16 +40,6 @@
             border-bottom: 2px solid var(--neon);
             position: relative;
             overflow: hidden;
-        }
-
-        .hero::before {
-            content: "🛡️";
-            font-size: 180px;
-            opacity: 0.03;
-            position: absolute;
-            bottom: -40px;
-            right: -30px;
-            pointer-events: none;
         }
 
         h1 {
@@ -65,6 +52,19 @@
             letter-spacing: -0.5px;
             text-shadow: 0 0 12px rgba(0,245,160,0.3);
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* ✅ Логотип перед заголовком */
+        .header-logo {
+            width: 48px;
+            height: 48px;
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .sub {
@@ -74,43 +74,12 @@
             margin: 0 auto;
         }
 
-        /* МАНИФЕСТ (цитата) - ИЗМЕНЕНО: удалена первая фраза */
-        .manifesto-card {
-            max-width: 900px;
-            margin: -2rem auto 2rem auto;
-            background: rgba(17, 22, 28, 0.9);
-            backdrop-filter: blur(4px);
-            border: 1px solid var(--neon);
-            border-radius: 32px;
-            padding: 1.6rem 2rem;
-            text-align: center;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.6);
-            z-index: 5;
-            position: relative;
-        }
-
-        .manifesto-card p {
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: #e2e8f0;
-            letter-spacing: 0.2px;
-        }
-
-        .quote-mark {
-            font-size: 2rem;
-            color: var(--neon);
-            opacity: 0.6;
-            font-family: serif;
-        }
-
-        /* ГЛАВНЫЙ КОНТЕЙНЕР */
         .container {
             max-width: 1300px;
             margin: 0 auto;
             padding: 2rem 1.5rem 3rem;
         }
 
-        /* СЕТКА ПРОЕКТОВ — 3-4 колонки */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
@@ -118,7 +87,6 @@
             margin-bottom: 3rem;
         }
 
-        /* КАРТОЧКА */
         .project-card {
             background: var(--card-bg);
             border: 1px solid var(--border-dim);
@@ -163,7 +131,6 @@
             flex-grow: 1;
         }
 
-        /* кнопка универсальная */
         .project-btn {
             background: transparent;
             border: 1.5px solid var(--neon);
@@ -188,7 +155,6 @@
             border-color: var(--neon);
         }
 
-        /* стиль для рутуб канала */
         .rutube-card {
             border-left: 4px solid var(--red-rutube);
             background: linear-gradient(145deg, #12171f, #0d1117);
@@ -206,7 +172,6 @@
             box-shadow: 0 0 14px var(--red-rutube);
         }
 
-        /* БЛОК ПОДДЕРЖКИ */
         .support-hub {
             background: linear-gradient(135deg, #0c111b, #03070f);
             border-radius: 42px;
@@ -256,10 +221,10 @@
         }
 
         @media (max-width: 680px) {
-            h1 { font-size: 2rem; }
+            h1 { font-size: 2rem; flex-direction: column; gap: 8px; }
+            .header-logo { width: 40px; height: 40px; }
             .projects-grid { grid-template-columns: 1fr; }
             .phone-number { font-size: 1.6rem; }
-            .manifesto-card p { font-size: 0.95rem; }
         }
 
         .badge-offline {
@@ -277,20 +242,18 @@
 <body>
 
 <div class="hero">
-    <!-- ИЗМЕНЕНО: убран щит 🛡️ перед надписью -->
-    <h1>ANTI‑AI SHIELD</h1>
+    <!-- ✅ Логотип перед текстом заголовка -->
+    <h1>
+        <img src="favicon.ico" alt="Anti-AI Shield Logo" class="header-logo">
+        ANTI‑AI SHIELD
+    </h1>
     <div class="sub">Цифровая крепость · приватность без облаков</div>
 </div>
 
 <div class="container">
-    <!-- ИЗМЕНЕНО: удалена фраза "В 2026 году твои данные — это валюта, а твое внимание — мишень." -->
-    <div class="manifesto-card">
-        <span class="quote-mark">“</span>
-        <p>Мы создали Anti-AI Shield не для прибыли, а для защиты. Наши инструменты работают оффлайн, без регистрации и слежки. Твой телефон — твоя крепость. Выбирай защиту и передай другу.</p>
-        <span class="quote-mark" style="display: inline-block; transform: rotate(180deg);">”</span>
-    </div>
+    <!-- ✅ Блок манифеста удалён полностью -->
 
-    <!-- СЕТКА ПРОЕКТОВ : ПОЛНЫЙ СПИСОК ВСЕХ ССЫЛОК из задания -->
+    <!-- СЕТКА ПРОЕКТОВ -->
     <div class="projects-grid" id="dynamicProjects"></div>
 
     <!-- Блок поддержки с номером -->
@@ -308,9 +271,6 @@
 </footer>
 
 <script>
-    // --------------------------------------------------------------
-    // ПРАВИЛЬНЫЕ ССЫЛКИ НА ВСЕ ПРОЕКТЫ (в точности как в задании)
-    // --------------------------------------------------------------
     const projectsData = [
         {
             title: "🛡️ Защита от телефонных мошенников",
@@ -405,7 +365,6 @@
         }
     ];
 
-    // функция отрисовки карточек с проверкой ссылок
     function renderProjects() {
         const container = document.getElementById('dynamicProjects');
         if (!container) return;
@@ -418,10 +377,8 @@
                 card.classList.add('rutube-card');
             }
             
-            // иконка
             const iconSpan = `<span class="card-icon">${proj.icon}</span>`;
             
-            // заголовок + бейдж
             const titleDiv = document.createElement('div');
             titleDiv.className = 'card-title';
             titleDiv.innerHTML = `${proj.title} <span class="badge-offline">⚡ оффлайн</span>`;
@@ -437,7 +394,6 @@
             btn.target = '_blank';
             btn.rel = 'noopener noreferrer';
             
-            // Добавляем все элементы
             card.insertAdjacentHTML('beforeend', iconSpan);
             card.appendChild(titleDiv);
             card.appendChild(descDiv);
@@ -446,14 +402,9 @@
             container.appendChild(card);
         });
         
-        // дополнительная проверка в консоли для ясности
-        console.log(`✅ Anti-AI Shield | Загружено проектов: ${projectsData.length} (все ссылки активны)`);
-        projectsData.forEach((p, idx) => {
-            console.log(`  ${idx+1}. ${p.title} → ${p.url}`);
-        });
+        console.log(`✅ Anti-AI Shield | Загружено проектов: ${projectsData.length}`);
     }
 
-    // запуск после загрузки DOM
     window.addEventListener('DOMContentLoaded', () => {
         renderProjects();
     });
