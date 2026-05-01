@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Anti-AI Shield | Витрина цифровой защиты</title>
-    <!-- ✅ Логотип во вкладке браузера -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -35,43 +35,69 @@
 
         .hero {
             background: radial-gradient(circle at 20% 30%, #0b1117, #030507);
-            padding: 3rem 1.5rem 4rem;
-            text-align: center;
+            padding: 2rem 1.5rem;
             border-bottom: 2px solid var(--neon);
-            position: relative;
-            overflow: hidden;
+        }
+
+        /* ВСЁ ПО ЦЕНТРУ: логотип + название + QR-код */
+        .hero-center {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo {
+            width: 48px;
+            height: 48px;
         }
 
         h1 {
-            font-size: 2.7rem;
+            font-size: 2rem;
             font-weight: 800;
             background: linear-gradient(135deg, #ffffff 0%, var(--neon) 80%);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             letter-spacing: -0.5px;
-            text-shadow: 0 0 12px rgba(0,245,160,0.3);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            margin: 0;
         }
 
-        /* ✅ Логотип перед заголовком */
-        .header-logo {
-            width: 48px;
-            height: 48px;
-            display: inline-block;
-            vertical-align: middle;
+        /* QR-код */
+        .qr-area {
+            text-align: center;
+            background: rgba(17, 22, 28, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--neon);
+            backdrop-filter: blur(8px);
+        }
+
+        .qr-area p {
+            font-size: 0.65rem;
+            color: #9ca3af;
+            margin-top: 5px;
+        }
+
+        /* Подзаголовок по центру */
+        .hero-sub {
+            max-width: 1300px;
+            margin: 1rem auto 0;
+            text-align: center;
         }
 
         .sub {
             color: #9ca3af;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 1rem;
         }
 
         .container {
@@ -220,9 +246,11 @@
             margin-top: 2rem;
         }
 
-        @media (max-width: 680px) {
-            h1 { font-size: 2rem; flex-direction: column; gap: 8px; }
-            .header-logo { width: 40px; height: 40px; }
+        @media (max-width: 650px) {
+            .hero-center {
+                flex-direction: column;
+                gap: 12px;
+            }
             .projects-grid { grid-template-columns: 1fr; }
             .phone-number { font-size: 1.6rem; }
         }
@@ -242,19 +270,26 @@
 <body>
 
 <div class="hero">
-    <!-- ✅ Логотип перед текстом заголовка -->
-    <h1>
-        <img src="favicon.ico" alt="Anti-AI Shield Logo" class="header-logo">
-        ANTI‑AI SHIELD
-    </h1>
-    <div class="sub">Цифровая крепость · приватность без облаков</div>
+    <!-- ВСЁ ПО ЦЕНТРУ: логотип + ANTI‑AI SHIELD + QR-код -->
+    <div class="hero-center">
+        <div class="logo-area">
+            <img src="favicon.ico" alt="Anti-AI Shield Logo" class="header-logo">
+            <h1>ANTI‑AI SHIELD</h1>
+        </div>
+        <div class="qr-area">
+            <div id="qr-code"></div>
+            <p>📱 Сканируй</p>
+        </div>
+    </div>
+    <!-- Подзаголовок по центру -->
+    <div class="hero-sub">
+        <div class="sub">Цифровая крепость · приватность без облаков</div>
+    </div>
 </div>
 
 <div class="container">
-    <!-- СЕТКА ПРОЕКТОВ -->
     <div class="projects-grid" id="dynamicProjects"></div>
 
-    <!-- Блок поддержки с номером -->
     <div class="support-hub">
         <h2>💙 Поддержать проекты</h2>
         <p style="max-width: 500px; margin: 0 auto 0.8rem;">Все приложения бесплатны и без рекламы. Ваша помощь помогает развитию офлайн‑безопасности.</p>
@@ -269,6 +304,16 @@
 </footer>
 
 <script>
+    // QR-код для главной страницы каталога
+    new QRCode(document.getElementById("qr-code"), {
+        text: "https://ancf-hue.github.io/",
+        width: 90,
+        height: 90,
+        colorDark: "#00f5a0",
+        colorLight: "#0f172a",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+
     const projectsData = [
         {
             title: "🛡️ Защита от телефонных мошенников",
@@ -382,7 +427,6 @@
             url: "https://anti-ai-eyes-gym.vercel.app/",
             isRutube: false
         },
-        // ========== НОВОЕ ПРИЛОЖЕНИЕ "АНТИ-ИИ ПРОВЕРКА ЗРЕНИЯ" ==========
         {
             title: "👁️ Анти-ИИ Проверка зрения",
             icon: "👁️🩺",
@@ -390,7 +434,6 @@
             url: "https://anti-ai-vision-check.vercel.app/",
             isRutube: false
         },
-        // ========== КОНЕЦ НОВОГО ПРИЛОЖЕНИЯ ==========
         {
             title: "📖 Анти ИИ Азбука",
             icon: "📖🔤",
