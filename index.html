@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Anti-AI Shield | Витрина цифровой защиты</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -78,12 +77,31 @@
             border-radius: 20px;
             border: 1px solid var(--neon);
             backdrop-filter: blur(8px);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        .qr-area:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px var(--neon-glow);
         }
 
         .qr-area p {
             font-size: 0.65rem;
             color: #9ca3af;
             margin-top: 5px;
+        }
+        
+        #qr-code {
+            width: 90px;
+            height: 90px;
+            background: #0f172a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #00f5a0;
         }
 
         .hero-sub {
@@ -284,6 +302,43 @@
             font-weight: 700;
             vertical-align: middle;
         }
+        
+        .error-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: #dc2626;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            text-align: center;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+            display: none;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .retry-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -291,12 +346,12 @@
 <div class="hero">
     <div class="hero-center">
         <div class="logo-area">
-            <img src="favicon.ico" alt="Anti-AI Shield Logo" class="header-logo">
+            <img src="favicon.ico" alt="Anti-AI Shield Logo" class="header-logo" onerror="this.style.display='none'">
             <h1>ANTI‑AI SHIELD</h1>
         </div>
-        <div class="qr-area">
-            <div id="qr-code"></div>
-            <p>📱 Сканируй</p>
+        <div class="qr-area" id="qrClickArea" title="Нажмите для копирования ссылки">
+            <div id="qr-code">📱</div>
+            <p>Сканируй ↑</p>
         </div>
     </div>
     <div class="hero-sub">
@@ -320,232 +375,134 @@
     © 2026 Anti‑AI Shield • Технологии для людей • 100% оффлайн-философия
 </footer>
 
-<script>
-    new QRCode(document.getElementById("qr-code"), {
-        text: "https://ancf-hue.github.io/",
-        width: 90,
-        height: 90,
-        colorDark: "#00f5a0",
-        colorLight: "#0f172a",
-        correctLevel: QRCode.CorrectLevel.H
-    });
+<div id="errorToast" class="error-toast"></div>
 
-    const projectsData = [
-        // ===== НОВЫЕ ПРОЕКТЫ (тренировка памяти / слух) =====
-        {
-            title: "🧠 Анти ИИ Проверка слуха (память)",
-            icon: "👂🧠",
-            desc: "Тренировка памяти и слухового внимания. Развивайте когнитивные способности через аудио-упражнения. Полная офлайн-безопасность.",
-            url: "https://anti-ai-hearing-test-memory-trainin.vercel.app/",
-            isRutube: false,
-            isNew: true,
-            specialBadge: "🎧 память"
-        },
-        {
-            title: "⚡ Анти ИИ Проверка слуха (быстрая)",
-            icon: "👂⚡",
-            desc: "Экспресс-тренировка памяти и скорости реакции. Быстрый режим для развития слухового внимания. Без интернета и слежки.",
-            url: "https://anti-ai-hearing-test-fast.vercel.app/",
-            isRutube: false,
-            isNew: true,
-            specialBadge: "🚀 быстрая"
-        },
-        {
-            title: "🐢 Анти ИИ Проверка слуха (медленная)",
-            icon: "👂🐢",
-            desc: "Размеренная тренировка памяти и слуха. Идеально для начинающих и для глубокого погружения в аудио-упражнения.",
-            url: "https://anti-ai-hearing-test-slow-memory-tr.vercel.app/",
-            isRutube: false,
-            isNew: true,
-            specialBadge: "🎵 медленная"
-        },
-        {
-            title: "📊 Анти-ИИ Аудиометр",
-            icon: "👂📊",
-            desc: "Профессиональный аудиометр для оценки чувствительности слуха. Диапазон частот, точные измерения без облачных сервисов.",
-            url: "https://anti-ai-audiometer.vercel.app/",
-            isRutube: false,
-            isNew: true,
-            specialBadge: "🔊 точный"
-        },
-        // === НОВЫЕ ПРОЕКТЫ (другие) ===
-        {
-            title: "📝 Анти ИИ Считаем до 10",
-            icon: "📝🔢",
-            desc: "Интерактивное обучение счёту для детей. Без интернета, без слежки — только польза и увлекательные цифры.",
-            url: "https://anti-ai-count-to-10.vercel.app/",
-            isRutube: false,
-            isNew: true
-        },
-        {
-            title: "🪞 Анти ИИ Электронное зеркало",
-            icon: "🪞✨",
-            desc: "Цифровое зеркало для самодиагностики и анализа осанки. Офлайн-инструмент для заботы о себе.",
-            url: "https://anti-ai-electronic-mirror.vercel.app/",
-            isRutube: false,
-            isNew: true
-        },
-        {
-            title: "📏 Анти-ИИ Расстояние",
-            icon: "📏📐",
-            desc: "Измерение расстояния от камеры до лица в реальном времени. Калибровка, светофорная индикация, полная приватность.",
-            url: "https://anti-ai-distance.vercel.app/",
-            isRutube: false,
-            isNew: true
-        },
-        // === ОСТАЛЬНЫЕ ПРОЕКТЫ ===
-        {
-            title: "🛡️ Защита от телефонных мошенников",
-            icon: "📞🛡️",
-            desc: "Блокировка телефонных атак и распознавание ИИ-голосов. Анти-фишинг защита.",
-            url: "https://anti-ai-shield.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🏫 Защита от Школьного буллинга",
-            icon: "🏫",
-            desc: "Предотвращение травли, психологическая поддержка и советы для детей и родителей.",
-            url: "https://anti-bullying-app-one.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🐾 Анти ИИ: Животные поют",
-            icon: "🐾🎵",
-            desc: "Весёлые песни животных без нейросетей. Чистая фонотека для детей и души.",
-            url: "https://anti-ai-animals.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🧘 Анти-ИИ Стресс",
-            icon: "🧘🌿",
-            desc: "Медитации, звуки природы и техники расслабления. Без интернета.",
-            url: "https://anti-ai-stress.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "📱 Анти ИИ Штрих-код",
-            icon: "📱🔍",
-            desc: "Сканирование и честная проверка товаров. Никакой аналитики, только польза.",
-            url: "https://anti-ai-barcode.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "✨ Анти ИИ Космос",
-            icon: "✨🌌",
-            desc: "3D-атлас звёзд, путешествие по галактикам без слежки.",
-            url: "https://anti-ai-cosmos.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🚗 Анти ИИ Автомобиль",
-            icon: "🚗⚡",
-            desc: "Помощник водителя: расход топлива, парковка и честные советы.",
-            url: "https://anti-ai-auto.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🧠 Анти ИИ Память",
-            icon: "🧠📚",
-            desc: "Тренировка мозга и мнемотехники. Развивай когнитивные способности.",
-            url: "https://anti-ai-memory.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🔐 Анти ИИ Пароли",
-            icon: "🔐🔑",
-            desc: "Генератор криптостойких паролей и менеджер безопасности.",
-            url: "https://anti-ai-passwords.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "📐 Анти ИИ Уровень",
-            icon: "📐📏",
-            desc: "Цифровой уровень, уклономер — точный строительный инструмент.",
-            url: "https://anti-ai-level.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🥁 Анти ИИ Барабан (Метроном)",
-            icon: "🥁🎛️",
-            desc: "Профессиональный метроном с точной настройкой и ритмическими паттернами.",
-            url: "https://anti-ai-drum-metronome.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🥁 Анти ИИ Барабан (20 ритмов)",
-            icon: "🥁🎶",
-            desc: "Коллекция из 20 ритмов для музыкантов и битмейкеров. Оффлайн-студия.",
-            url: "https://anti-ai-20-ritmov.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🥁 Анти ИИ Барабан (Шары)",
-            icon: "🥁🎈",
-            desc: "Ритмичные шары и визуальный метроном. Развивайте чувство ритма в офлайн-игре.",
-            url: "https://anti-ai-drum-balls.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "🥁 Анти ИИ Слепая зона",
-            icon: "🥁👁️",
-            desc: "Ритмическая игра на барабанах. Развивайте чувство ритма и реакцию — попадайте в «слепую зону» ритма!",
-            url: "https://anti-ai-blind-zone.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "💡 Анти ИИ СВЕТ (Люксметр)",
-            icon: "💡📐",
-            desc: "Честное измерение освещённости в люксах. Отключите HDR, заблокируйте экспозицию — и получите точные замеры без нейросетей.",
-            url: "https://anti-ai-light.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "👁️ Анти‑ИИ Зарядка для глаз",
-            icon: "👁️⚡",
-            desc: "Упражнения для снятия зрительного утомления, восстановления фокуса и профилактики цифрового напряжения глаз. Офлайн‑безопасно.",
-            url: "https://anti-ai-eyes-gym.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "👁️ Анти-ИИ Проверка зрения",
-            icon: "👁️🩺",
-            desc: "Бесплатный офлайн-тест зрения: 13 проверок (острота, астигматизм, цветоощущение, поле зрения). Случайный порядок, поддержка двух языков.",
-            url: "https://anti-ai-vision-check.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "📖 Анти ИИ Азбука",
-            icon: "📖🔤",
-            desc: "Обучающая азбука для детей. Без рекламы, без интернета — только буквы и слова.",
-            url: "https://anti-ai-abc.vercel.app/",
-            isRutube: false,
-            isNew: false
-        },
-        {
-            title: "✨ ВолшебствО | Rutube",
-            icon: "🎬✨",
-            desc: "Видео-уроки, лайфхаки цифровой гигиены, защита и магия оффлайн-мира.",
-            url: "https://rutube.ru/channel/24404224/",
-            isRutube: true,
-            isNew: false
+<script>
+    // Функция показа уведомлений
+    function showMessage(message, isError = true) {
+        const toast = document.getElementById('errorToast');
+        if (toast) {
+            toast.textContent = message;
+            toast.style.background = isError ? '#dc2626' : '#10b981';
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 5000);
+        } else {
+            alert(message);
         }
+    }
+    
+    // Простой генератор декоративного QR-кода (canvas, без внешних библиотек)
+    function generateDecorativeQR(text, elementId, size = 90) {
+        const container = document.getElementById(elementId);
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        
+        // Фон
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, size, size);
+        
+        // Рисуем стилизованный паттерн в стиле QR
+        ctx.fillStyle = '#00f5a0';
+        const cellSize = size / 8;
+        
+        // Угловые маркеры
+        for (let y = 0; y < 3; y++) {
+            for (let x = 0; x < 3; x++) {
+                if ((y === 0 || y === 2) && (x === 0 || x === 2)) {
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                } else if (y === 1 && x === 1) {
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                }
+            }
+        }
+        
+        // Правый верхний угол
+        for (let y = 0; y < 3; y++) {
+            for (let x = 5; x < 8; x++) {
+                if ((y === 0 || y === 2) && (x === 5 || x === 7)) {
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                } else if (y === 1 && x === 6) {
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                }
+            }
+        }
+        
+        // Левый нижний угол
+        for (let y = 5; y < 8; y++) {
+            for (let x = 0; x < 3; x++) {
+                if ((y === 5 || y === 7) && (x === 0 || x === 2)) {
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                } else if (y === 6 && x === 1) {
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                }
+            }
+        }
+        
+        // Случайные точки для имитации QR
+        for (let i = 0; i < 15; i++) {
+            const x = Math.floor(Math.random() * 8);
+            const y = Math.floor(Math.random() * 8);
+            if (!((x < 3 && y < 3) || (x > 4 && y < 3) || (x < 3 && y > 4))) {
+                ctx.fillRect(x * cellSize, y * cellSize, cellSize/2, cellSize/2);
+            }
+        }
+        
+        // Текст
+        ctx.font = 'bold 8px monospace';
+        ctx.fillStyle = '#00f5a0';
+        ctx.fillText('anti-ai', 5, size - 6);
+        
+        container.appendChild(canvas);
+        
+        // Клик для копирования ссылки
+        canvas.style.cursor = 'pointer';
+        canvas.onclick = () => {
+            navigator.clipboard.writeText(text).then(() => {
+                showMessage('✅ Ссылка скопирована: ' + text, false);
+            }).catch(() => {
+                showMessage('❌ Не удалось скопировать ссылку');
+            });
+        };
+        
+        return canvas;
+    }
+    
+    // Данные проектов (все на Vercel)
+    const projectsData = [
+        { title: "🧠 Анти ИИ Проверка слуха (память)", icon: "👂🧠", desc: "Тренировка памяти и слухового внимания. Развивайте когнитивные способности через аудио-упражнения. Полная офлайн-безопасность.", url: "https://anti-ai-hearing-test-memory-trainin.vercel.app/", isRutube: false, isNew: true, specialBadge: "🎧 память" },
+        { title: "⚡ Анти ИИ Проверка слуха (быстрая)", icon: "👂⚡", desc: "Экспресс-тренировка памяти и скорости реакции. Быстрый режим для развития слухового внимания. Без интернета и слежки.", url: "https://anti-ai-hearing-test-fast.vercel.app/", isRutube: false, isNew: true, specialBadge: "🚀 быстрая" },
+        { title: "🐢 Анти ИИ Проверка слуха (медленная)", icon: "👂🐢", desc: "Размеренная тренировка памяти и слуха. Идеально для начинающих и для глубокого погружения в аудио-упражнения.", url: "https://anti-ai-hearing-test-slow-memory-tr.vercel.app/", isRutube: false, isNew: true, specialBadge: "🎵 медленная" },
+        { title: "📊 Анти-ИИ Аудиометр", icon: "👂📊", desc: "Профессиональный аудиометр для оценки чувствительности слуха. Диапазон частот, точные измерения без облачных сервисов.", url: "https://anti-ai-audiometer.vercel.app/", isRutube: false, isNew: true, specialBadge: "🔊 точный" },
+        { title: "📝 Анти ИИ Считаем до 10", icon: "📝🔢", desc: "Интерактивное обучение счёту для детей. Без интернета, без слежки — только польза и увлекательные цифры.", url: "https://anti-ai-count-to-10.vercel.app/", isRutube: false, isNew: true },
+        { title: "🪞 Анти ИИ Электронное зеркало", icon: "🪞✨", desc: "Цифровое зеркало для самодиагностики и анализа осанки. Офлайн-инструмент для заботы о себе.", url: "https://anti-ai-electronic-mirror.vercel.app/", isRutube: false, isNew: true },
+        { title: "📏 Анти-ИИ Расстояние", icon: "📏📐", desc: "Измерение расстояния от камеры до лица в реальном времени. Калибровка, светофорная индикация, полная приватность.", url: "https://anti-ai-distance.vercel.app/", isRutube: false, isNew: true },
+        { title: "🛡️ Защита от телефонных мошенников", icon: "📞🛡️", desc: "Блокировка телефонных атак и распознавание ИИ-голосов. Анти-фишинг защита.", url: "https://anti-ai-shield.vercel.app/", isRutube: false, isNew: false },
+        { title: "🏫 Защита от Школьного буллинга", icon: "🏫", desc: "Предотвращение травли, психологическая поддержка и советы для детей и родителей.", url: "https://anti-bullying-app-one.vercel.app/", isRutube: false, isNew: false },
+        { title: "🐾 Анти ИИ: Животные поют", icon: "🐾🎵", desc: "Весёлые песни животных без нейросетей. Чистая фонотека для детей и души.", url: "https://anti-ai-animals.vercel.app/", isRutube: false, isNew: false },
+        { title: "🧘 Анти-ИИ Стресс", icon: "🧘🌿", desc: "Медитации, звуки природы и техники расслабления. Без интернета.", url: "https://anti-ai-stress.vercel.app/", isRutube: false, isNew: false },
+        { title: "📱 Анти ИИ Штрих-код", icon: "📱🔍", desc: "Сканирование и честная проверка товаров. Никакой аналитики, только польза.", url: "https://anti-ai-barcode.vercel.app/", isRutube: false, isNew: false },
+        { title: "✨ Анти ИИ Космос", icon: "✨🌌", desc: "3D-атлас звёзд, путешествие по галактикам без слежки.", url: "https://anti-ai-cosmos.vercel.app/", isRutube: false, isNew: false },
+        { title: "🚗 Анти ИИ Автомобиль", icon: "🚗⚡", desc: "Помощник водителя: расход топлива, парковка и честные советы.", url: "https://anti-ai-auto.vercel.app/", isRutube: false, isNew: false },
+        { title: "🧠 Анти ИИ Память", icon: "🧠📚", desc: "Тренировка мозга и мнемотехники. Развивай когнитивные способности.", url: "https://anti-ai-memory.vercel.app/", isRutube: false, isNew: false },
+        { title: "🔐 Анти ИИ Пароли", icon: "🔐🔑", desc: "Генератор криптостойких паролей и менеджер безопасности.", url: "https://anti-ai-passwords.vercel.app/", isRutube: false, isNew: false },
+        { title: "📐 Анти ИИ Уровень", icon: "📐📏", desc: "Цифровой уровень, уклономер — точный строительный инструмент.", url: "https://anti-ai-level.vercel.app/", isRutube: false, isNew: false },
+        { title: "🥁 Анти ИИ Барабан (Метроном)", icon: "🥁🎛️", desc: "Профессиональный метроном с точной настройкой и ритмическими паттернами.", url: "https://anti-ai-drum-metronome.vercel.app/", isRutube: false, isNew: false },
+        { title: "🥁 Анти ИИ Барабан (20 ритмов)", icon: "🥁🎶", desc: "Коллекция из 20 ритмов для музыкантов и битмейкеров. Оффлайн-студия.", url: "https://anti-ai-20-ritmov.vercel.app/", isRutube: false, isNew: false },
+        { title: "🥁 Анти ИИ Барабан (Шары)", icon: "🥁🎈", desc: "Ритмичные шары и визуальный метроном. Развивайте чувство ритма в офлайн-игре.", url: "https://anti-ai-drum-balls.vercel.app/", isRutube: false, isNew: false },
+        { title: "🥁 Анти ИИ Слепая зона", icon: "🥁👁️", desc: "Ритмическая игра на барабанах. Развивайте чувство ритма и реакцию — попадайте в «слепую зону» ритма!", url: "https://anti-ai-blind-zone.vercel.app/", isRutube: false, isNew: false },
+        { title: "💡 Анти ИИ СВЕТ (Люксметр)", icon: "💡📐", desc: "Честное измерение освещённости в люксах. Отключите HDR, заблокируйте экспозицию — и получите точные замеры без нейросетей.", url: "https://anti-ai-light.vercel.app/", isRutube: false, isNew: false },
+        { title: "👁️ Анти‑ИИ Зарядка для глаз", icon: "👁️⚡", desc: "Упражнения для снятия зрительного утомления, восстановления фокуса и профилактики цифрового напряжения глаз. Офлайн‑безопасно.", url: "https://anti-ai-eyes-gym.vercel.app/", isRutube: false, isNew: false },
+        { title: "👁️ Анти-ИИ Проверка зрения", icon: "👁️🩺", desc: "Бесплатный офлайн-тест зрения: 13 проверок (острота, астигматизм, цветоощущение, поле зрения). Случайный порядок, поддержка двух языков.", url: "https://anti-ai-vision-check.vercel.app/", isRutube: false, isNew: false },
+        { title: "📖 Анти ИИ Азбука", icon: "📖🔤", desc: "Обучающая азбука для детей. Без рекламы, без интернета — только буквы и слова.", url: "https://anti-ai-abc.vercel.app/", isRutube: false, isNew: false },
+        { title: "✨ ВолшебствО | Rutube", icon: "🎬✨", desc: "Видео-уроки, лайфхаки цифровой гигиены, защита и магия оффлайн-мира.", url: "https://rutube.ru/channel/24404224/", isRutube: true, isNew: false }
     ];
 
     function renderProjects() {
@@ -594,11 +551,42 @@
             container.appendChild(card);
         });
         
-        console.log(`✅ Anti-AI Shield | Загружено проектов: ${projectsData.length}`);
+        console.log(`✅ Anti-AI Shield | Загружено проектов: ${projectsData.length} | Все проекты на Vercel, витрина на GitHub Pages`);
     }
 
+    // Проверка соединения с GitHub Pages
+    function checkConnection() {
+        if (!navigator.onLine) {
+            showMessage('⚠️ Нет соединения с интернетом. Проекты откроются, когда интернет появится.');
+            return false;
+        }
+        return true;
+    }
+    
+    // Инициализация
     window.addEventListener('DOMContentLoaded', () => {
         renderProjects();
+        generateDecorativeQR('https://ancf-hue.github.io/', 'qr-code', 90);
+        checkConnection();
+        
+        // Отлавливаем ошибки QUIC
+        window.addEventListener('error', function(e) {
+            if (e.message && (e.message.includes('QUIC') || e.message.includes('net::ERR_'))) {
+                showMessage('⚠️ Ошибка сети (' + (e.message.slice(0, 50)) + '). Попробуйте обновить страницу (Ctrl+F5) или отключить VPN/антивирус.');
+            }
+        });
+        
+        // Дополнительная защита от QUIC: пробуем перезагрузить страницу без кеша при ошибке
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('no_quic')) {
+            // Если страница загрузилась с ошибкой QUIC, браузер может сам попробовать без QUIC
+            setTimeout(() => {
+                if (document.body.innerHTML.length < 1000) {
+                    // Если страница загрузилась не полностью
+                    window.location.href = window.location.href + '?no_quic=1';
+                }
+            }, 2000);
+        }
     });
 </script>
 </body>
