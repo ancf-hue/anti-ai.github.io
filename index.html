@@ -273,6 +273,17 @@
             font-weight: 700;
             vertical-align: middle;
         }
+
+        .hearing-badge {
+            background: #f0b27a;
+            color: #1a1a2e;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            margin-left: 8px;
+            font-weight: 700;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -320,7 +331,44 @@
     });
 
     const projectsData = [
-        // === НОВЫЕ ПРОЕКТЫ (вверху списка) ===
+        // ===== НОВЫЕ ПРОЕКТЫ (тренировка памяти / слух) =====
+        {
+            title: "🧠 Анти ИИ Проверка слуха (память)",
+            icon: "👂🧠",
+            desc: "Тренировка памяти и слухового внимания. Развивайте когнитивные способности через аудио-упражнения. Полная офлайн-безопасность.",
+            url: "https://anti-ai-hearing-test-memory-trainin.vercel.app/",
+            isRutube: false,
+            isNew: true,
+            specialBadge: "🎧 память"
+        },
+        {
+            title: "⚡ Анти ИИ Проверка слуха (быстрая)",
+            icon: "👂⚡",
+            desc: "Экспресс-тренировка памяти и скорости реакции. Быстрый режим для развития слухового внимания. Без интернета и слежки.",
+            url: "https://anti-ai-hearing-test-fast.vercel.app/",
+            isRutube: false,
+            isNew: true,
+            specialBadge: "🚀 быстрая"
+        },
+        {
+            title: "🐢 Анти ИИ Проверка слуха (медленная)",
+            icon: "👂🐢",
+            desc: "Размеренная тренировка памяти и слуха. Идеально для начинающих и для глубокого погружения в аудио-упражнения.",
+            url: "https://anti-ai-hearing-test-slow-memory-tr.vercel.app/",
+            isRutube: false,
+            isNew: true,
+            specialBadge: "🎵 медленная"
+        },
+        {
+            title: "📊 Анти-ИИ Аудиометр",
+            icon: "👂📊",
+            desc: "Профессиональный аудиометр для оценки чувствительности слуха. Диапазон частот, точные измерения без облачных сервисов.",
+            url: "https://anti-ai-audiometer.vercel.app/",
+            isRutube: false,
+            isNew: true,
+            specialBadge: "🔊 точный"
+        },
+        // === НОВЫЕ ПРОЕКТЫ (другие) ===
         {
             title: "📝 Анти ИИ Считаем до 10",
             icon: "📝🔢",
@@ -516,7 +564,16 @@
             
             const titleDiv = document.createElement('div');
             titleDiv.className = 'card-title';
-            titleDiv.innerHTML = `${proj.title} <span class="badge-offline">⚡ оффлайн</span>${proj.isNew ? ' <span class="new-badge">НОВОЕ</span>' : ''}`;
+            
+            let badgeHtml = '<span class="badge-offline">⚡ оффлайн</span>';
+            if (proj.specialBadge) {
+                badgeHtml += ` <span class="hearing-badge">${proj.specialBadge}</span>`;
+            }
+            if (proj.isNew) {
+                badgeHtml += ' <span class="new-badge">НОВОЕ</span>';
+            }
+            
+            titleDiv.innerHTML = `${proj.title} ${badgeHtml}`;
             
             const descDiv = document.createElement('div');
             descDiv.className = 'card-desc';
