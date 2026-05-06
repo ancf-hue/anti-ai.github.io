@@ -20,15 +20,11 @@
             scroll-behavior: smooth;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,500;14..32,700;14..32,800&display=swap');
-
         :root {
             --neon: #00f5a0;
             --neon-glow: rgba(0, 245, 160, 0.4);
-            --bg-deep: #05070a;
             --card-bg: #11161c;
             --border-dim: #2a2f36;
-            --blue-accent: #3b82f6;
             --red-rutube: #ff4c4c;
         }
 
@@ -66,8 +62,6 @@
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            letter-spacing: -0.5px;
-            margin: 0;
         }
 
         .qr-area {
@@ -92,16 +86,11 @@
             margin-top: 5px;
         }
         
-        #qr-code {
+        #qr-image {
             width: 90px;
             height: 90px;
-            background: #0f172a;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            color: #00f5a0;
+            display: block;
         }
 
         .hero-sub {
@@ -136,7 +125,6 @@
             transition: all 0.25s ease-in-out;
             display: flex;
             flex-direction: column;
-            backdrop-filter: blur(2px);
         }
 
         .project-card:hover {
@@ -149,13 +137,11 @@
         .card-icon {
             font-size: 3.2rem;
             margin-bottom: 1rem;
-            display: inline-block;
         }
 
         .card-title {
             font-size: 1.55rem;
             font-weight: 700;
-            letter-spacing: -0.3px;
             margin-bottom: 0.6rem;
             color: #ffffff;
             display: flex;
@@ -168,7 +154,6 @@
             font-size: 0.95rem;
             color: #b9c3d0;
             margin-bottom: 1.6rem;
-            line-height: 1.45;
             flex-grow: 1;
         }
 
@@ -180,25 +165,19 @@
             padding: 0.8rem 0;
             border-radius: 60px;
             font-weight: 600;
-            font-size: 0.95rem;
             text-decoration: none;
             display: block;
             transition: 0.2s;
-            margin-top: 0.5rem;
-            cursor: pointer;
-            font-family: inherit;
         }
 
         .project-btn:hover {
             background: var(--neon);
             color: #03070c;
             box-shadow: 0 0 12px var(--neon);
-            border-color: var(--neon);
         }
 
         .rutube-card {
             border-left: 4px solid var(--red-rutube);
-            background: linear-gradient(145deg, #12171f, #0d1117);
         }
 
         .rutube-card .project-btn {
@@ -209,8 +188,6 @@
         .rutube-card .project-btn:hover {
             background: var(--red-rutube);
             color: #000;
-            border-color: var(--red-rutube);
-            box-shadow: 0 0 14px var(--red-rutube);
         }
 
         .support-hub {
@@ -220,12 +197,10 @@
             padding: 2.5rem 2rem;
             text-align: center;
             margin-top: 2rem;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
         }
 
         .support-hub h2 {
             font-size: 2rem;
-            font-weight: 700;
             background: linear-gradient(120deg, #c084fc, #60a5fa);
             background-clip: text;
             -webkit-background-clip: text;
@@ -237,7 +212,6 @@
             font-size: 2.2rem;
             font-weight: 800;
             font-family: monospace;
-            letter-spacing: 2px;
             background: #0f172a;
             display: inline-block;
             padding: 0.4rem 1.6rem;
@@ -277,8 +251,6 @@
             padding: 0.2rem 0.6rem;
             border-radius: 30px;
             color: #9bb9d9;
-            margin-left: 8px;
-            vertical-align: middle;
         }
         
         .new-badge {
@@ -287,9 +259,7 @@
             font-size: 0.6rem;
             padding: 0.15rem 0.5rem;
             border-radius: 20px;
-            margin-left: 8px;
             font-weight: 700;
-            vertical-align: middle;
         }
 
         .hearing-badge {
@@ -298,9 +268,7 @@
             font-size: 0.7rem;
             padding: 0.2rem 0.6rem;
             border-radius: 30px;
-            margin-left: 8px;
             font-weight: 700;
-            vertical-align: middle;
         }
         
         .error-toast {
@@ -315,29 +283,7 @@
             font-size: 14px;
             text-align: center;
             z-index: 1000;
-            animation: slideUp 0.3s ease;
             display: none;
-        }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .retry-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-left: 10px;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -350,7 +296,8 @@
             <h1>ANTI‑AI SHIELD</h1>
         </div>
         <div class="qr-area" id="qrClickArea" title="Нажмите для копирования ссылки">
-            <div id="qr-code">📱</div>
+            <!-- НАСТОЯЩИЙ QR-КОД через бесплатный API -->
+            <img id="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://ancf-hue.github.io/" alt="QR-код">
             <p>Сканируй ↑</p>
         </div>
     </div>
@@ -378,7 +325,6 @@
 <div id="errorToast" class="error-toast"></div>
 
 <script>
-    // Функция показа уведомлений
     function showMessage(message, isError = true) {
         const toast = document.getElementById('errorToast');
         if (toast) {
@@ -388,145 +334,57 @@
             setTimeout(() => {
                 toast.style.display = 'none';
             }, 5000);
-        } else {
-            alert(message);
         }
     }
     
-    // ========== НОВАЯ ФУНКЦИЯ: Обработка редиректа из 404.html ==========
-    // Это решает проблему с ошибками 404 в Google Search Console
+    // Обработка редиректа из 404.html
     function handleRedirectFrom404() {
         try {
             var redirectPath = sessionStorage.getItem('redirectPath');
             if (redirectPath && redirectPath !== '/' && redirectPath !== '') {
-                // Удаляем сохранённый путь, чтобы не обрабатывать повторно
                 sessionStorage.removeItem('redirectPath');
-                
                 console.log('🔄 Перенаправление с 404 на главную:', redirectPath);
-                
-                // Для Googlebot и пользователей: просто логируем, так как у нас SPA-витрина
-                // У вас нет внутренних страниц, поэтому просто перенаправляем на главную
-                // Это заставляет Googlebot видеть контент, а не ошибку 404
-                
-                // Можно показать уведомление пользователю (опционально)
-                // showMessage('Страница не найдена. Вы перенаправлены на главную.', false);
             }
         } catch(e) {
-            console.warn('Ошибка при обработке редиректа:', e);
+            console.warn('Ошибка:', e);
         }
     }
-    // ===================================================================
     
-    // Простой генератор декоративного QR-кода (canvas, без внешних библиотек)
-    function generateDecorativeQR(text, elementId, size = 90) {
-        const container = document.getElementById(elementId);
-        if (!container) return;
-        
-        container.innerHTML = '';
-        
-        const canvas = document.createElement('canvas');
-        canvas.width = size;
-        canvas.height = size;
-        const ctx = canvas.getContext('2d');
-        
-        // Фон
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(0, 0, size, size);
-        
-        // Рисуем стилизованный паттерн в стиле QR
-        ctx.fillStyle = '#00f5a0';
-        const cellSize = size / 8;
-        
-        // Угловые маркеры
-        for (let y = 0; y < 3; y++) {
-            for (let x = 0; x < 3; x++) {
-                if ((y === 0 || y === 2) && (x === 0 || x === 2)) {
-                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                } else if (y === 1 && x === 1) {
-                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                }
-            }
-        }
-        
-        // Правый верхний угол
-        for (let y = 0; y < 3; y++) {
-            for (let x = 5; x < 8; x++) {
-                if ((y === 0 || y === 2) && (x === 5 || x === 7)) {
-                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                } else if (y === 1 && x === 6) {
-                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                }
-            }
-        }
-        
-        // Левый нижний угол
-        for (let y = 5; y < 8; y++) {
-            for (let x = 0; x < 3; x++) {
-                if ((y === 5 || y === 7) && (x === 0 || x === 2)) {
-                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                } else if (y === 6 && x === 1) {
-                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                }
-            }
-        }
-        
-        // Случайные точки для имитации QR
-        for (let i = 0; i < 15; i++) {
-            const x = Math.floor(Math.random() * 8);
-            const y = Math.floor(Math.random() * 8);
-            if (!((x < 3 && y < 3) || (x > 4 && y < 3) || (x < 3 && y > 4))) {
-                ctx.fillRect(x * cellSize, y * cellSize, cellSize/2, cellSize/2);
-            }
-        }
-        
-        // Текст
-        ctx.font = 'bold 8px monospace';
-        ctx.fillStyle = '#00f5a0';
-        ctx.fillText('anti-ai', 5, size - 6);
-        
-        container.appendChild(canvas);
-        
-        // Клик для копирования ссылки
-        canvas.style.cursor = 'pointer';
-        canvas.onclick = () => {
-            navigator.clipboard.writeText(text).then(() => {
-                showMessage('✅ Ссылка скопирована: ' + text, false);
-            }).catch(() => {
-                showMessage('❌ Не удалось скопировать ссылку');
+    // Копирование ссылки по клику на QR-область
+    function setupQRClick() {
+        const qrArea = document.getElementById('qrClickArea');
+        if (qrArea) {
+            qrArea.addEventListener('click', function() {
+                const url = 'https://ancf-hue.github.io/';
+                navigator.clipboard.writeText(url).then(() => {
+                    showMessage('✅ Ссылка скопирована: ' + url, false);
+                }).catch(() => {
+                    showMessage('❌ Не удалось скопировать ссылку');
+                });
             });
-        };
-        
-        return canvas;
+        }
     }
     
-    // Данные проектов (все на Vercel)
     const projectsData = [
-        { title: "🧠 Анти ИИ Проверка слуха (память)", icon: "👂🧠", desc: "Тренировка памяти и слухового внимания. Развивайте когнитивные способности через аудио-упражнения. Полная офлайн-безопасность.", url: "https://anti-ai-hearing-test-memory-trainin.vercel.app/", isRutube: false, isNew: true, specialBadge: "🎧 память" },
-        { title: "⚡ Анти ИИ Проверка слуха (быстрая)", icon: "👂⚡", desc: "Экспресс-тренировка памяти и скорости реакции. Быстрый режим для развития слухового внимания. Без интернета и слежки.", url: "https://anti-ai-hearing-test-fast.vercel.app/", isRutube: false, isNew: true, specialBadge: "🚀 быстрая" },
-        { title: "🐢 Анти ИИ Проверка слуха (медленная)", icon: "👂🐢", desc: "Размеренная тренировка памяти и слуха. Идеально для начинающих и для глубокого погружения в аудио-упражнения.", url: "https://anti-ai-hearing-test-slow-memory-tr.vercel.app/", isRutube: false, isNew: true, specialBadge: "🎵 медленная" },
-        { title: "📊 Анти-ИИ Аудиометр", icon: "👂📊", desc: "Профессиональный аудиометр для оценки чувствительности слуха. Диапазон частот, точные измерения без облачных сервисов.", url: "https://anti-ai-audiometer.vercel.app/", isRutube: false, isNew: true, specialBadge: "🔊 точный" },
-        { title: "📝 Анти ИИ Считаем до 10", icon: "📝🔢", desc: "Интерактивное обучение счёту для детей. Без интернета, без слежки — только польза и увлекательные цифры.", url: "https://anti-ai-count-to-10.vercel.app/", isRutube: false, isNew: true },
-        { title: "🪞 Анти ИИ Электронное зеркало", icon: "🪞✨", desc: "Цифровое зеркало для самодиагностики и анализа осанки. Офлайн-инструмент для заботы о себе.", url: "https://anti-ai-electronic-mirror.vercel.app/", isRutube: false, isNew: true },
-        { title: "📏 Анти-ИИ Расстояние", icon: "📏📐", desc: "Измерение расстояния от камеры до лица в реальном времени. Калибровка, светофорная индикация, полная приватность.", url: "https://anti-ai-distance.vercel.app/", isRutube: false, isNew: true },
-        { title: "🛡️ Защита от телефонных мошенников", icon: "📞🛡️", desc: "Блокировка телефонных атак и распознавание ИИ-голосов. Анти-фишинг защита.", url: "https://anti-ai-shield.vercel.app/", isRutube: false, isNew: false },
-        { title: "🏫 Защита от Школьного буллинга", icon: "🏫", desc: "Предотвращение травли, психологическая поддержка и советы для детей и родителей.", url: "https://anti-bullying-app-one.vercel.app/", isRutube: false, isNew: false },
-        { title: "🐾 Анти ИИ: Животные поют", icon: "🐾🎵", desc: "Весёлые песни животных без нейросетей. Чистая фонотека для детей и души.", url: "https://anti-ai-animals.vercel.app/", isRutube: false, isNew: false },
-        { title: "🧘 Анти-ИИ Стресс", icon: "🧘🌿", desc: "Медитации, звуки природы и техники расслабления. Без интернета.", url: "https://anti-ai-stress.vercel.app/", isRutube: false, isNew: false },
-        { title: "📱 Анти ИИ Штрих-код", icon: "📱🔍", desc: "Сканирование и честная проверка товаров. Никакой аналитики, только польза.", url: "https://anti-ai-barcode.vercel.app/", isRutube: false, isNew: false },
-        { title: "✨ Анти ИИ Космос", icon: "✨🌌", desc: "3D-атлас звёзд, путешествие по галактикам без слежки.", url: "https://anti-ai-cosmos.vercel.app/", isRutube: false, isNew: false },
-        { title: "🚗 Анти ИИ Автомобиль", icon: "🚗⚡", desc: "Помощник водителя: расход топлива, парковка и честные советы.", url: "https://anti-ai-auto.vercel.app/", isRutube: false, isNew: false },
-        { title: "🧠 Анти ИИ Память", icon: "🧠📚", desc: "Тренировка мозга и мнемотехники. Развивай когнитивные способности.", url: "https://anti-ai-memory.vercel.app/", isRutube: false, isNew: false },
-        { title: "🔐 Анти ИИ Пароли", icon: "🔐🔑", desc: "Генератор криптостойких паролей и менеджер безопасности.", url: "https://anti-ai-passwords.vercel.app/", isRutube: false, isNew: false },
-        { title: "📐 Анти ИИ Уровень", icon: "📐📏", desc: "Цифровой уровень, уклономер — точный строительный инструмент.", url: "https://anti-ai-level.vercel.app/", isRutube: false, isNew: false },
-        { title: "🥁 Анти ИИ Барабан (Метроном)", icon: "🥁🎛️", desc: "Профессиональный метроном с точной настройкой и ритмическими паттернами.", url: "https://anti-ai-drum-metronome.vercel.app/", isRutube: false, isNew: false },
-        { title: "🥁 Анти ИИ Барабан (20 ритмов)", icon: "🥁🎶", desc: "Коллекция из 20 ритмов для музыкантов и битмейкеров. Оффлайн-студия.", url: "https://anti-ai-20-ritmov.vercel.app/", isRutube: false, isNew: false },
-        { title: "🥁 Анти ИИ Барабан (Шары)", icon: "🥁🎈", desc: "Ритмичные шары и визуальный метроном. Развивайте чувство ритма в офлайн-игре.", url: "https://anti-ai-drum-balls.vercel.app/", isRutube: false, isNew: false },
-        { title: "🥁 Анти ИИ Слепая зона", icon: "🥁👁️", desc: "Ритмическая игра на барабанах. Развивайте чувство ритма и реакцию — попадайте в «слепую зону» ритма!", url: "https://anti-ai-blind-zone.vercel.app/", isRutube: false, isNew: false },
-        { title: "💡 Анти ИИ СВЕТ (Люксметр)", icon: "💡📐", desc: "Честное измерение освещённости в люксах. Отключите HDR, заблокируйте экспозицию — и получите точные замеры без нейросетей.", url: "https://anti-ai-light.vercel.app/", isRutube: false, isNew: false },
-        { title: "👁️ Анти‑ИИ Зарядка для глаз", icon: "👁️⚡", desc: "Упражнения для снятия зрительного утомления, восстановления фокуса и профилактики цифрового напряжения глаз. Офлайн‑безопасно.", url: "https://anti-ai-eyes-gym.vercel.app/", isRutube: false, isNew: false },
-        { title: "👁️ Анти-ИИ Проверка зрения", icon: "👁️🩺", desc: "Бесплатный офлайн-тест зрения: 13 проверок (острота, астигматизм, цветоощущение, поле зрения). Случайный порядок, поддержка двух языков.", url: "https://anti-ai-vision-check.vercel.app/", isRutube: false, isNew: false },
-        { title: "📖 Анти ИИ Азбука", icon: "📖🔤", desc: "Обучающая азбука для детей. Без рекламы, без интернета — только буквы и слова.", url: "https://anti-ai-abc.vercel.app/", isRutube: false, isNew: false },
-        { title: "✨ ВолшебствО | Rutube", icon: "🎬✨", desc: "Видео-уроки, лайфхаки цифровой гигиены, защита и магия оффлайн-мира.", url: "https://rutube.ru/channel/24404224/", isRutube: true, isNew: false }
+        { title: "🧠 Анти ИИ Проверка слуха (память)", icon: "👂🧠", desc: "Тренировка памяти и слухового внимания.", url: "https://anti-ai-hearing-test-memory-trainin.vercel.app/", isRutube: false, isNew: true, specialBadge: "🎧 память" },
+        { title: "⚡ Анти ИИ Проверка слуха (быстрая)", icon: "👂⚡", desc: "Экспресс-тренировка памяти и скорости реакции.", url: "https://anti-ai-hearing-test-fast.vercel.app/", isRutube: false, isNew: true, specialBadge: "🚀 быстрая" },
+        { title: "🐢 Анти ИИ Проверка слуха (медленная)", icon: "👂🐢", desc: "Размеренная тренировка памяти и слуха.", url: "https://anti-ai-hearing-test-slow-memory-tr.vercel.app/", isRutube: false, isNew: true, specialBadge: "🎵 медленная" },
+        { title: "📊 Анти-ИИ Аудиометр", icon: "👂📊", desc: "Профессиональный аудиометр для оценки чувствительности слуха.", url: "https://anti-ai-audiometer.vercel.app/", isRutube: false, isNew: true, specialBadge: "🔊 точный" },
+        { title: "📝 Анти ИИ Считаем до 10", icon: "📝🔢", desc: "Интерактивное обучение счёту для детей.", url: "https://anti-ai-count-to-10.vercel.app/", isRutube: false, isNew: true },
+        { title: "🪞 Анти ИИ Электронное зеркало", icon: "🪞✨", desc: "Цифровое зеркало для самодиагностики.", url: "https://anti-ai-electronic-mirror.vercel.app/", isRutube: false, isNew: true },
+        { title: "📏 Анти-ИИ Расстояние", icon: "📏📐", desc: "Измерение расстояния от камеры до лица.", url: "https://anti-ai-distance.vercel.app/", isRutube: false, isNew: true },
+        { title: "🛡️ Защита от телефонных мошенников", icon: "📞🛡️", desc: "Блокировка телефонных атак.", url: "https://anti-ai-shield.vercel.app/", isRutube: false, isNew: false },
+        { title: "🏫 Защита от Школьного буллинга", icon: "🏫", desc: "Предотвращение травли.", url: "https://anti-bullying-app-one.vercel.app/", isRutube: false, isNew: false },
+        { title: "🐾 Анти ИИ: Животные поют", icon: "🐾🎵", desc: "Весёлые песни животных.", url: "https://anti-ai-animals.vercel.app/", isRutube: false, isNew: false },
+        { title: "🧘 Анти-ИИ Стресс", icon: "🧘🌿", desc: "Медитации и техники расслабления.", url: "https://anti-ai-stress.vercel.app/", isRutube: false, isNew: false },
+        { title: "📱 Анти ИИ Штрих-код", icon: "📱🔍", desc: "Сканирование товаров.", url: "https://anti-ai-barcode.vercel.app/", isRutube: false, isNew: false },
+        { title: "✨ Анти ИИ Космос", icon: "✨🌌", desc: "3D-атлас звёзд.", url: "https://anti-ai-cosmos.vercel.app/", isRutube: false, isNew: false },
+        { title: "🚗 Анти ИИ Автомобиль", icon: "🚗⚡", desc: "Помощник водителя.", url: "https://anti-ai-auto.vercel.app/", isRutube: false, isNew: false },
+        { title: "🧠 Анти ИИ Память", icon: "🧠📚", desc: "Тренировка мозга.", url: "https://anti-ai-memory.vercel.app/", isRutube: false, isNew: false },
+        { title: "🔐 Анти ИИ Пароли", icon: "🔐🔑", desc: "Генератор паролей.", url: "https://anti-ai-passwords.vercel.app/", isRutube: false, isNew: false },
+        { title: "📐 Анти ИИ Уровень", icon: "📐📏", desc: "Цифровой уровень.", url: "https://anti-ai-level.vercel.app/", isRutube: false, isNew: false },
+        { title: "🥁 Анти ИИ Барабан (Метроном)", icon: "🥁🎛️", desc: "Профессиональный метроном.", url: "https://anti-ai-drum-metronome.vercel.app/", isRutube: false, isNew: false },
+        { title: "✨ ВолшебствО | Rutube", icon: "🎬✨", desc: "Видео-уроки цифровой гигиены.", url: "https://rutube.ru/channel/24404224/", isRutube: true, isNew: false }
     ];
 
     function renderProjects() {
@@ -537,82 +395,26 @@
         projectsData.forEach(proj => {
             const card = document.createElement('div');
             card.className = 'project-card';
-            if (proj.isRutube) {
-                card.classList.add('rutube-card');
-            }
-            
-            const iconSpan = `<span class="card-icon">${proj.icon}</span>`;
-            
-            const titleDiv = document.createElement('div');
-            titleDiv.className = 'card-title';
+            if (proj.isRutube) card.classList.add('rutube-card');
             
             let badgeHtml = '<span class="badge-offline">⚡ оффлайн</span>';
-            if (proj.specialBadge) {
-                badgeHtml += ` <span class="hearing-badge">${proj.specialBadge}</span>`;
-            }
-            if (proj.isNew) {
-                badgeHtml += ' <span class="new-badge">НОВОЕ</span>';
-            }
+            if (proj.specialBadge) badgeHtml += ` <span class="hearing-badge">${proj.specialBadge}</span>`;
+            if (proj.isNew) badgeHtml += ' <span class="new-badge">НОВОЕ</span>';
             
-            titleDiv.innerHTML = `${proj.title} ${badgeHtml}`;
-            
-            const descDiv = document.createElement('div');
-            descDiv.className = 'card-desc';
-            descDiv.innerText = proj.desc;
-            
-            const btn = document.createElement('a');
-            btn.className = 'project-btn';
-            btn.innerText = 'ОТКРЫТЬ ПРОЕКТ →';
-            btn.href = proj.url;
-            btn.target = '_blank';
-            btn.rel = 'noopener noreferrer';
-            
-            card.insertAdjacentHTML('beforeend', iconSpan);
-            card.appendChild(titleDiv);
-            card.appendChild(descDiv);
-            card.appendChild(btn);
-            
+            card.innerHTML = `
+                <span class="card-icon">${proj.icon}</span>
+                <div class="card-title">${proj.title} ${badgeHtml}</div>
+                <div class="card-desc">${proj.desc}</div>
+                <a class="project-btn" href="${proj.url}" target="_blank" rel="noopener noreferrer">ОТКРЫТЬ ПРОЕКТ →</a>
+            `;
             container.appendChild(card);
         });
-        
-        console.log(`✅ Anti-AI Shield | Загружено проектов: ${projectsData.length} | Все проекты на Vercel, витрина на GitHub Pages`);
     }
 
-    // Проверка соединения с GitHub Pages
-    function checkConnection() {
-        if (!navigator.onLine) {
-            showMessage('⚠️ Нет соединения с интернетом. Проекты откроются, когда интернет появится.');
-            return false;
-        }
-        return true;
-    }
-    
-    // Инициализация
     window.addEventListener('DOMContentLoaded', () => {
-        // ВАЖНО: Сначала обрабатываем редирект из 404.html
         handleRedirectFrom404();
-        
-        // Затем рендерим всё остальное
         renderProjects();
-        generateDecorativeQR('https://ancf-hue.github.io/', 'qr-code', 90);
-        checkConnection();
-        
-        // Отлавливаем ошибки QUIC
-        window.addEventListener('error', function(e) {
-            if (e.message && (e.message.includes('QUIC') || e.message.includes('net::ERR_'))) {
-                showMessage('⚠️ Ошибка сети (' + (e.message.slice(0, 50)) + '). Попробуйте обновить страницу (Ctrl+F5) или отключить VPN/антивирус.');
-            }
-        });
-        
-        // Дополнительная защита от QUIC: пробуем перезагрузить страницу без кеша при ошибке
-        const urlParams = new URLSearchParams(window.location.search);
-        if (!urlParams.has('no_quic')) {
-            setTimeout(() => {
-                if (document.body.innerHTML.length < 1000) {
-                    window.location.href = window.location.href + '?no_quic=1';
-                }
-            }, 2000);
-        }
+        setupQRClick();
     });
 </script>
 </body>
