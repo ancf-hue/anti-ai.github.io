@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Перенаправление...</title>
+    <script>
+        // Сохраняем запрошенный путь в sessionStorage
+        var path = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+        
+        sessionStorage.setItem('redirectPath', path + search + hash);
+        
+        // Перенаправляем на главную страницу
+        window.location.replace('/');
+    </script>
+</head>
+<body>
+    <p>Перенаправление на главную страницу...</p>
+</body>
+</html>
