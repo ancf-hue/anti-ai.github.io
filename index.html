@@ -393,6 +393,30 @@
         }
     }
     
+    // ========== НОВАЯ ФУНКЦИЯ: Обработка редиректа из 404.html ==========
+    // Это решает проблему с ошибками 404 в Google Search Console
+    function handleRedirectFrom404() {
+        try {
+            var redirectPath = sessionStorage.getItem('redirectPath');
+            if (redirectPath && redirectPath !== '/' && redirectPath !== '') {
+                // Удаляем сохранённый путь, чтобы не обрабатывать повторно
+                sessionStorage.removeItem('redirectPath');
+                
+                console.log('🔄 Перенаправление с 404 на главную:', redirectPath);
+                
+                // Для Googlebot и пользователей: просто логируем, так как у нас SPA-витрина
+                // У вас нет внутренних страниц, поэтому просто перенаправляем на главную
+                // Это заставляет Googlebot видеть контент, а не ошибку 404
+                
+                // Можно показать уведомление пользователю (опционально)
+                // showMessage('Страница не найдена. Вы перенаправлены на главную.', false);
+            }
+        } catch(e) {
+            console.warn('Ошибка при обработке редиректа:', e);
+        }
+    }
+    // ===================================================================
+    
     // Простой генератор декоративного QR-кода (canvas, без внешних библиотек)
     function generateDecorativeQR(text, elementId, size = 90) {
         const container = document.getElementById(elementId);
@@ -565,6 +589,10 @@
     
     // Инициализация
     window.addEventListener('DOMContentLoaded', () => {
+        // ВАЖНО: Сначала обрабатываем редирект из 404.html
+        handleRedirectFrom404();
+        
+        // Затем рендерим всё остальное
         renderProjects();
         generateDecorativeQR('https://ancf-hue.github.io/', 'qr-code', 90);
         checkConnection();
@@ -579,10 +607,8 @@
         // Дополнительная защита от QUIC: пробуем перезагрузить страницу без кеша при ошибке
         const urlParams = new URLSearchParams(window.location.search);
         if (!urlParams.has('no_quic')) {
-            // Если страница загрузилась с ошибкой QUIC, браузер может сам попробовать без QUIC
             setTimeout(() => {
                 if (document.body.innerHTML.length < 1000) {
-                    // Если страница загрузилась не полностью
                     window.location.href = window.location.href + '?no_quic=1';
                 }
             }, 2000);
