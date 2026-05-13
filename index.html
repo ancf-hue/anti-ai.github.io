@@ -6,12 +6,7 @@
     <title>Anti-AI Shield | Витрина цифровой защиты</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #0a0c0f;
             font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
@@ -19,7 +14,6 @@
             line-height: 1.5;
             scroll-behavior: smooth;
         }
-
         :root {
             --neon: #00f5a0;
             --neon-glow: rgba(0, 245, 160, 0.4);
@@ -27,13 +21,11 @@
             --border-dim: #2a2f36;
             --red-rutube: #ff4c4c;
         }
-
         .hero {
             background: radial-gradient(circle at 20% 30%, #0b1117, #030507);
             padding: 2rem 1.5rem;
             border-bottom: 2px solid var(--neon);
         }
-
         .hero-center {
             max-width: 1300px;
             margin: 0 auto;
@@ -43,18 +35,15 @@
             gap: 20px;
             flex-wrap: wrap;
         }
-
         .logo-area {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .header-logo {
             width: 48px;
             height: 48px;
         }
-
         h1 {
             font-size: 2rem;
             font-weight: 800;
@@ -63,7 +52,6 @@
             -webkit-background-clip: text;
             color: transparent;
         }
-
         .qr-area {
             text-align: center;
             background: rgba(17, 22, 28, 0.8);
@@ -74,49 +62,41 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        
         .qr-area:hover {
             transform: scale(1.02);
             box-shadow: 0 0 15px var(--neon-glow);
         }
-
         .qr-area p {
             font-size: 0.65rem;
             color: #9ca3af;
             margin-top: 5px;
         }
-        
         #qr-image {
             width: 90px;
             height: 90px;
             border-radius: 12px;
             display: block;
         }
-
         .hero-sub {
             max-width: 1300px;
             margin: 1rem auto 0;
             text-align: center;
         }
-
         .sub {
             color: #9ca3af;
             font-size: 1rem;
         }
-
         .container {
             max-width: 1300px;
             margin: 0 auto;
             padding: 2rem 1.5rem 3rem;
         }
-
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 1.8rem;
             margin-bottom: 3rem;
         }
-
         .project-card {
             background: var(--card-bg);
             border: 1px solid var(--border-dim);
@@ -126,19 +106,16 @@
             display: flex;
             flex-direction: column;
         }
-
         .project-card:hover {
             transform: translateY(-6px);
             border-color: var(--neon);
             box-shadow: 0 20px 30px -12px rgba(0, 245, 160, 0.2);
             background: #121a21;
         }
-
         .card-icon {
             font-size: 3.2rem;
             margin-bottom: 1rem;
         }
-
         .card-title {
             font-size: 1.55rem;
             font-weight: 700;
@@ -149,14 +126,12 @@
             gap: 8px;
             flex-wrap: wrap;
         }
-
         .card-desc {
             font-size: 0.95rem;
             color: #b9c3d0;
             margin-bottom: 1.6rem;
             flex-grow: 1;
         }
-
         .project-btn {
             background: transparent;
             border: 1.5px solid var(--neon);
@@ -169,27 +144,22 @@
             display: block;
             transition: 0.2s;
         }
-
         .project-btn:hover {
             background: var(--neon);
             color: #03070c;
             box-shadow: 0 0 12px var(--neon);
         }
-
         .rutube-card {
             border-left: 4px solid var(--red-rutube);
         }
-
         .rutube-card .project-btn {
             border-color: var(--red-rutube);
             color: #ff9696;
         }
-
         .rutube-card .project-btn:hover {
             background: var(--red-rutube);
             color: #000;
         }
-
         .support-hub {
             background: linear-gradient(135deg, #0c111b, #03070f);
             border-radius: 42px;
@@ -198,7 +168,6 @@
             text-align: center;
             margin-top: 2rem;
         }
-
         .support-hub h2 {
             font-size: 2rem;
             background: linear-gradient(120deg, #c084fc, #60a5fa);
@@ -207,7 +176,6 @@
             color: transparent;
             margin-bottom: 1rem;
         }
-
         .phone-number {
             font-size: 2.2rem;
             font-weight: 800;
@@ -220,12 +188,10 @@
             margin: 1rem 0;
             color: #b9e0ff;
         }
-
         .support-note {
             color: #8c9bb0;
             font-size: 0.9rem;
         }
-
         footer {
             text-align: center;
             padding: 2.2rem;
@@ -234,16 +200,11 @@
             border-top: 1px solid #1e293b;
             margin-top: 2rem;
         }
-
         @media (max-width: 650px) {
-            .hero-center {
-                flex-direction: column;
-                gap: 12px;
-            }
+            .hero-center { flex-direction: column; gap: 12px; }
             .projects-grid { grid-template-columns: 1fr; }
             .phone-number { font-size: 1.6rem; }
         }
-
         .badge-offline {
             font-size: 0.7rem;
             background: #1f2a36;
@@ -252,7 +213,6 @@
             border-radius: 30px;
             color: #9bb9d9;
         }
-        
         .new-badge {
             background: #00f5a0;
             color: #03070c;
@@ -261,7 +221,6 @@
             border-radius: 20px;
             font-weight: 700;
         }
-
         .hearing-badge {
             background: #f0b27a;
             color: #1a1a2e;
@@ -270,7 +229,6 @@
             border-radius: 30px;
             font-weight: 700;
         }
-        
         .error-toast {
             position: fixed;
             bottom: 20px;
@@ -296,7 +254,6 @@
             <h1>ANTI‑AI SHIELD</h1>
         </div>
         <div class="qr-area" id="qrClickArea" title="Нажмите для копирования ссылки">
-            <!-- НАСТОЯЩИЙ QR-КОД через бесплатный API -->
             <img id="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://ancf-hue.github.io/" alt="QR-код">
             <p>Сканируй ↑</p>
         </div>
@@ -331,13 +288,10 @@
             toast.textContent = message;
             toast.style.background = isError ? '#dc2626' : '#10b981';
             toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 5000);
+            setTimeout(() => { toast.style.display = 'none'; }, 5000);
         }
     }
     
-    // Обработка редиректа из 404.html
     function handleRedirectFrom404() {
         try {
             var redirectPath = sessionStorage.getItem('redirectPath');
@@ -345,12 +299,9 @@
                 sessionStorage.removeItem('redirectPath');
                 console.log('🔄 Перенаправление с 404 на главную:', redirectPath);
             }
-        } catch(e) {
-            console.warn('Ошибка:', e);
-        }
+        } catch(e) { console.warn('Ошибка:', e); }
     }
     
-    // Копирование ссылки по клику на QR-область
     function setupQRClick() {
         const qrArea = document.getElementById('qrClickArea');
         if (qrArea) {
@@ -366,13 +317,43 @@
     }
     
     const projectsData = [
-        { title: "🧠 Анти ИИ Проверка слуха (память)", icon: "👂🧠", desc: "Тренировка памяти и слухового внимания.", url: "https://anti-ai-hearing-test-memory-trainin.vercel.app/", isRutube: false, isNew: true, specialBadge: "🎧 память" },
-        { title: "⚡ Анти ИИ Проверка слуха (быстрая)", icon: "👂⚡", desc: "Экспресс-тренировка памяти и скорости реакции.", url: "https://anti-ai-hearing-test-fast.vercel.app/", isRutube: false, isNew: true, specialBadge: "🚀 быстрая" },
-        { title: "🐢 Анти ИИ Проверка слуха (медленная)", icon: "👂🐢", desc: "Размеренная тренировка памяти и слуха.", url: "https://anti-ai-hearing-test-slow-memory-tr.vercel.app/", isRutube: false, isNew: true, specialBadge: "🎵 медленная" },
-        { title: "📊 Анти-ИИ Аудиометр", icon: "👂📊", desc: "Профессиональный аудиометр для оценки чувствительности слуха.", url: "https://anti-ai-audiometer.vercel.app/", isRutube: false, isNew: true, specialBadge: "🔊 точный" },
-        { title: "📝 Анти ИИ Считаем до 10", icon: "📝🔢", desc: "Интерактивное обучение счёту для детей.", url: "https://anti-ai-count-to-10.vercel.app/", isRutube: false, isNew: true },
-        { title: "🪞 Анти ИИ Электронное зеркало", icon: "🪞✨", desc: "Цифровое зеркало для самодиагностики.", url: "https://anti-ai-electronic-mirror.vercel.app/", isRutube: false, isNew: true },
-        { title: "📏 Анти-ИИ Расстояние", icon: "📏📐", desc: "Измерение расстояния от камеры до лица.", url: "https://anti-ai-distance.vercel.app/", isRutube: false, isNew: true },
+        // === НОВЫЕ ПРОЕКТЫ (добавлены по запросу) ===
+        { 
+            title: "👁️ Анти ИИ Взгляд", 
+            icon: "👁️🛡️", 
+            desc: "Система безопасности для незрячих. Предупреждает о ямах, лужах, ветках, деревьях, ступеньках. Работает офлайн.", 
+            url: "https://anti-ai-glance.vercel.app/", 
+            isRutube: false, 
+            isNew: true, 
+            specialBadge: "👁️ для незрячих" 
+        },
+        { 
+            title: "👁️ Анти-ИИ Визометр (Детский)", 
+            icon: "👁️🧒", 
+            desc: "Проверка остроты зрения и обучение распознаванию визуальных дипфейков для детей через тест «выбери реальное».", 
+            url: "https://anti-ai-visometer-kids.vercel.app/", 
+            isRutube: false, 
+            isNew: true, 
+            specialBadge: "🧒 детский" 
+        },
+        { 
+            title: "🧭 Анти ИИ Навигатор (Прямо)", 
+            icon: "🧭🚶", 
+            desc: "Голосовой навигатор помогает идти прямо. Он помогает человеку идти в заданном направлении и не сбиться с пути.", 
+            url: "https://anti-ai-navigator-straight.vercel.app/", 
+            isRutube: false, 
+            isNew: true, 
+            specialBadge: "🧭 навигация" 
+        },
+        
+        // === СУЩЕСТВУЮЩИЕ ПРОЕКТЫ ===
+        { title: "🧠 Анти ИИ Проверка слуха (память)", icon: "👂🧠", desc: "Тренировка памяти и слухового внимания.", url: "https://anti-ai-hearing-test-memory-trainin.vercel.app/", isRutube: false, isNew: false, specialBadge: "🎧 память" },
+        { title: "⚡ Анти ИИ Проверка слуха (быстрая)", icon: "👂⚡", desc: "Экспресс-тренировка памяти и скорости реакции.", url: "https://anti-ai-hearing-test-fast.vercel.app/", isRutube: false, isNew: false, specialBadge: "🚀 быстрая" },
+        { title: "🐢 Анти ИИ Проверка слуха (медленная)", icon: "👂🐢", desc: "Размеренная тренировка памяти и слуха.", url: "https://anti-ai-hearing-test-slow-memory-tr.vercel.app/", isRutube: false, isNew: false, specialBadge: "🎵 медленная" },
+        { title: "📊 Анти-ИИ Аудиометр", icon: "👂📊", desc: "Профессиональный аудиометр для оценки чувствительности слуха.", url: "https://anti-ai-audiometer.vercel.app/", isRutube: false, isNew: false, specialBadge: "🔊 точный" },
+        { title: "📝 Анти ИИ Считаем до 10", icon: "📝🔢", desc: "Интерактивное обучение счёту для детей.", url: "https://anti-ai-count-to-10.vercel.app/", isRutube: false, isNew: false },
+        { title: "🪞 Анти ИИ Электронное зеркало", icon: "🪞✨", desc: "Цифровое зеркало для самодиагностики.", url: "https://anti-ai-electronic-mirror.vercel.app/", isRutube: false, isNew: false },
+        { title: "📏 Анти-ИИ Расстояние", icon: "📏📐", desc: "Измерение расстояния от камеры до лица.", url: "https://anti-ai-distance.vercel.app/", isRutube: false, isNew: false },
         { title: "🛡️ Защита от телефонных мошенников", icon: "📞🛡️", desc: "Блокировка телефонных атак.", url: "https://anti-ai-shield.vercel.app/", isRutube: false, isNew: false },
         { title: "🏫 Защита от Школьного буллинга", icon: "🏫", desc: "Предотвращение травли.", url: "https://anti-bullying-app-one.vercel.app/", isRutube: false, isNew: false },
         { title: "🐾 Анти ИИ: Животные поют", icon: "🐾🎵", desc: "Весёлые песни животных.", url: "https://anti-ai-animals.vercel.app/", isRutube: false, isNew: false },
